@@ -21,7 +21,7 @@ git clone https://github.com/your-username/happy-industry.git
 The Happy Industry project was successfully completed as part of an academic challenge. Future improvements may include expanding the reporting features and adding more user management capabilities.
 
 ## Contributors
-Pedro Henrique Z. Costa
-Fabio Augusto Tomaselli Visentainer
-Leandro Canha
+Pedro Henrique Z. Costa <br>
+Fabio Augusto Tomaselli Visentainer <br>
+Leandro Canha <br>
 Thiago Akimoto
