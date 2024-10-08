@@ -1,0 +1,41 @@
+{% extends 'standard.html' %}
+
+{% block head %}
+<title>Cadastro de Materiais de Consumo</title>
+{% endblock %}
+
+
+{% block body %}
+<section>
+    <h1>Cadastro de Materiais de Consumo</h1>
+    <div>
+        <section class="format">
+            <h1>Alterar Material de Consumo</h1>
+            <form action="/cadastros_de_materiais_material_de_consumo_update/{{mc.ID}}" method="POST">
+                <p>Medida</p>
+                <input type="text" name="name" id="name" value="{{mc.NAME}}" maxlength="200" autocomplete="off" required>
+                <p>Medidas</p>
+                <select name="id_bd_measures" id="id_bd_measures" value="{{mc.ID_BD_MEASURES}}" required>
+                    {% for measure in measures %}
+                        {% if measure.ID == mc.ID_BD_MEASURES %}
+                            <option value="{{ measure.ID }}" > {{ measure.NAME }}</option>
+                        {% endif %}
+                    {% endfor %}
+                    {% for measure in measures %}
+                        {% if measure.ID != mc.ID_BD_MEASURES %}
+                            <option value="{{ measure.ID }}" > {{ measure.NAME }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+                <p>IPI</p>
+                <input type="number" name="ipi" id="ipi" value="{{mc.IPI}}" min="0" step="0.01" autocomplete="off" required>
+                <p>DIFAL</p>
+                <input type="number" name="difal" id="difal" value="{{mc.IPI}}" min="0" step="0.01" autocomplete="off" required>
+                <br>
+                <br>
+                <input class="bt" type="submit" value="Alterar Unidade de Medida">
+            </form>
+        </section>
+    </div>   
+</section>
+{% endblock %}

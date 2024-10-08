@@ -1,0 +1,51 @@
+{% extends 'standard.html' %}
+
+{% block head %}
+<title>Cadastro de Unidades Federativas</title>
+{% endblock %}
+
+{% block body %}
+<section>
+    <h1>Cadastro de Unidades Federativas</h1>
+    <div>
+        <section class="formulario">
+            <h1>Cadastrar Um Estado para o País {{ country.NAME }}</h1>
+            <form action="/cadastros_gerais_unidades_federativas_cadastrar_estado/{{ country.ID }}" method="POST">
+                <input type="text" name="name" id="name" maxlength="200" required autocomplete="off">
+                <input class="bt" type="submit" value="Adicionar Estado">
+            </form>
+        </section>
+        <section class="tabelas">
+            {% if estates|length < 1 %}
+            <h4>Não Existem Estados Cadastrados Para o País {{ country.NAME }}</h4>
+            {% else %}
+            <h1>Estados Cadastrados Para o País {{ country.NAME }}</h1>
+            <table class="tabela">
+                <tr>
+                    <th>País</th>
+                    <th>Estado</th>
+                    <th>Data adicionada</th>
+                    <th>Ações</th>
+                </tr>
+                {% for estate in estates %}
+                    {% if estate.ID_BD_COUNTRY == country.ID %}
+                        <tr>
+                            <td>{{ country.NAME }}</td>
+                            <td>{{ estate.NAME }}</td>
+                            <td>{{ estate.DATE_CREATED.date() }}</td>
+                            <td>
+                                <!--<a href="/cadastros_gerais_unidades_federativas_deletar_estado/{{ estate.ID }}/{{ country.ID }}">Delete</a>-->
+                                <a href="/cadastros_gerais_unidades_federativas_update_estado/{{ estate.ID }}/{{ country.ID }}">Alterar Estado</a>
+                                <br>
+                                <a href="/cadastros_gerais_unidades_federativas_cadastrar_cidade/{{ estate.ID }}/{{ country.ID }}">Cadastrar Cidade</a>
+                            </td>
+                        </tr> 
+                    {% else %}
+                    {% endif %} 
+                {% endfor %}
+            </table>
+            {% endif %} 
+        </section>
+    </div>   
+</section>
+{% endblock %}

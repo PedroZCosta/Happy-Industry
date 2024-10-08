@@ -1,0 +1,21 @@
+{% extends 'standard.html' %}
+
+{% block head %}
+<title>Cadastro de Unidades Federativas</title>
+{% endblock %}
+
+{% block body %}
+<section>
+    <h1>Cadastro de Unidades Federativas</h1>
+    <div>
+        <section class="formulario">
+            <p>Alterar Estado do País {{ country.NAME }}</p>
+            <form action="/cadastros_gerais_unidades_federativas_update_estado/{{ estate.ID }}/{{ country.ID }}" method="POST">
+                <input type="text" name="name" id="name" value="{{estate.NAME}}" maxlength="200" required autocomplete="off">
+                <input class="bt" type="submit" value="Alterar Nome do Estado">
+            </form>
+        </section>
+    </div>   
+</section>
+
+{% endblock %}

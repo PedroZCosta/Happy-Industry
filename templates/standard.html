@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <section class="index">
+        <h2>Menu</h2>
+        <!-- BOTÃO PARA RETORNAR AO INICIO -->
+        <form action="/" method = "POST">
+            <input type="submit" value="Início">
+        </form>
+        <!-- INDICE DE CADASTROS GERAIS -->
+        <h3>Cadastros Gerais</h3>
+            <!-- Unidades Federativas -->
+        <form action="/cadastros_gerais_unidades_federativas" method = "POST">
+            <input type="submit" value="Unidades Federativas">
+        </form>
+            <!-- Unidades de Medidas -->
+        <form action="/cadastros_gerais_unidades_de_medidas" method = "POST">
+            <input type="submit" value="Unidades de Medidas">
+        </form>
+            <!-- Grupos de Produtos -->
+        <form action="/cadastros_gerais_grupos_de_produtos" method = "POST">
+            <input type="submit" value="Grupos de Produtos">
+        </form>
+            <!-- Tipos de Produtos -->
+        <form action="/cadastros_gerais_tipos_de_produtos" method = "POST">
+            <input type="submit" value="Tipos de Produtos">
+        </form>
+        <!-- INDICE DE CADASTROS DE ENTIDADES -->
+        <h3>Cadastros de Entidades</h3> 
+            <!-- Encargos e Salários -->
+        <form action="/cadastros_de_entidades_encargos_e_salarios" method = "POST">
+            <input type="submit" value="Encargos e Salários">
+        </form>
+            <!-- Colaboradores -->
+        <form action="/cadastros_de_entidades_colaboradores" method = "POST">
+            <input type="submit" value="Colaboradores">
+        </form>
+            <!-- Fornecedores -->
+        <form action="/cadastros_de_entidades_fornecedores" method = "POST">
+            <input type="submit" value="Fornecedores">
+        </form>
+        <!-- INDICE DE CADASTROS DE MATERIAIS -->
+        <h3>Cadastros de Materiais</h3>  
+            <!-- Matéria Prima -->
+        <form action="/cadastros_de_materiais_materia_prima" method = "POST">
+            <input type="submit" value="Matéria Prima">
+        </form>
+            <!-- Material de Consumo -->
+        <form action="/cadastros_de_materiais_material_de_consumo" method = "POST">
+            <input type="submit" value="Material de Consumo">
+        </form>
+            <!-- Produtos -->
+        <form action="/cadastros_de_materiais_produtos" method = "POST">
+            <input type="submit" value="Produtos">
+        </form>
+        <!-- INDICE MOVIMENTAÇÕES -->
+        <h3>Movimentações</h3>  
+            <!-- Compras -->
+        <form action="/movimentacoes_compras" method = "POST">
+            <input type="submit" value="Compras">
+        </form>
+        <!-- INDICE DE RELATORIOS -->
+        <h3>Relatórios</h3>
+            <!-- Lista de Preços dos produtos -->
+        <form action="/relatorios_precos_dos_produtos" method = "POST">
+            <input type="submit" value="Preços dos Produtos">
+        </form>
+    </section>
+    {% block body %}
+    {% endblock %}
+</body>
+
+
+</html>

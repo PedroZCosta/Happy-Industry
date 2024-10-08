@@ -1,0 +1,27 @@
+{% extends 'standard.html' %}
+
+{% block head %}
+<title>Cadastro de Matérias Primas</title>
+{% endblock %}
+
+{% block body %}
+<section>
+    <h1>Cadastro de Matérias Primas</h1>
+    <div>
+        <section class="formulario">
+            <h1>Alterar Mão de Obra</h1>
+            <form action="/cadastros_de_materiais_produtos_alterar_mo/{{product.ID}}/{{product_mo.ID}}" method="POST">
+                <p>Nova Quantidade - Operadores</p>
+                <input type="number" name="workers_quantity" id="workers_quantity" value="{{ product_mo.WORKERS_QUANTITY }}" step="1" min="0" autocomplete="off" required>
+                <p>Nova Quantidade - Lote</p>
+                <input type="number" name="lot_ammount" id="lot_ammount" value="{{ product_mo.LOT_AMMOUNT }}" step="0.01" min="0" autocomplete="off" required>
+                <p>Nova Quantidade - Tempo (minutos)</p>
+                <input type="number" name="time_to_produce" id="time_to_produce" value="{{ product_mo.TIME_TO_PRODUCE }}" step="0.01" min="0" autocomplete="off" required>
+                <div class = "format">
+                    <input class="bt" type="submit" value="Salvar Alteração Mão de Obra">
+                </div>
+            </form>
+        </section>
+    </div>   
+</section>
+{% endblock %}

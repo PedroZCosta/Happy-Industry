@@ -1,0 +1,150 @@
+{% extends 'standard.html' %}
+
+{% block head %}
+<title>Relatório de Preços dos Produtos</title>
+{% endblock %}
+
+{% block body %}
+<div>
+    <section class="tabelas">
+        <h1>Preço Por Produto</h1>
+
+        {% for group in groups %}
+        <h1>{{ group.NAME }}</h1>
+        <table class="tabela">
+            {% for product in products %}
+                {% if product.ID_BD_GROUP == group.ID %}
+                <tr>
+                    <th>{{ product.NAME }}</th>
+                </tr>
+                <tr>
+                    <td>
+                    <div>
+
+                        <!-- Matéria Prima -->
+                        <table class="tabela">
+                            <tr>
+                                <th>Matéria Prima</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table class="tabela">
+                                        <tr>
+                                            <th>Descrição</th>
+                                            <th>Quantidade</th>
+                                            <th>Medida</th>
+                                            <th>Preço</th>
+                                            <th>Total</th>
+                                        </tr>
+                                        {% for product_mp in products_mp %}
+                                        {% if product_mp.ID_BD_PROD == product.ID %}
+                                        {% set latest_purchase = get_latest_purchase(product_mp.ID_BD_MP, 1) %}
+                                        <tr>
+                                            <td>{{ get_db_mp(product_mp.ID_BD_MP).NAME }}</td>
+                                            <td>{{ product_mp.QUANTITY }}</td>
+                                            <td>{{ get_measureabv(get_product_measure(product_mp.ID_BD_MP, 1).ID) }}</td>
+                                            <td>{{ format_currency(latest_purchase.price) }}</td>
+                                            <td>{{ format_currency(calculate_total_price(latest_purchase.price, product_mp.QUANTITY, (latest_purchase.transport_cost/latest_purchase.quantity), latest_purchase.difal, latest_purchase.ipi)) }}</td>
+                                        </tr>
+                                        {% endif %}
+                                        {% endfor %}
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <!-- Material de Consumo -->
+                        <table class="tabela">
+                            <tr>
+                                <th>Material de Consumo</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table class="tabela">
+                                        <tr>
+                                            <th>Descrição</th>
+                                            <th>Quantidade</th>
+                                            <th>Medida</th>
+                                            <th>Preço</th>
+                                            <th>Total</th>
+                                        </tr>
+                                        {% for product_mc in products_mc %}
+                                        {% if product_mc.ID_BD_PROD == product.ID %}
+                                        {% set latest_purchase = get_latest_purchase(product_mc.ID_BD_MC, 2) %}
+                                        <tr>
+                                            <td>{{ get_db_mc(product_mc.ID_BD_MC).NAME }}</td>
+                                            <td>{{ product_mc.QUANTITY }}</td>
+                                            <td>{{ get_measureabv(get_product_measure(product_mc.ID_BD_MC, 2).ID) }}</td>
+                                            <td>{{ format_currency(latest_purchase.price) }}</td>
+                                            <td>{{ format_currency(calculate_total_price(latest_purchase.price, 1, (latest_purchase.transport_cost/latest_purchase.quantity), latest_purchase.difal, latest_purchase.ipi) / product_mc.QUANTITY) }}</td>
+                                        </tr>
+                                        {% endif %}
+                                        {% endfor %}
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <!-- Mão de Obra -->
+                        <table class="tabela">
+                            <tr>
+                                <th>Mão de Obra</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table class="tabela">
+                                        <tr>
+                                            <th>Descrição</th>
+                                            <th>Operadores</th>
+                                            <th>Tamanho do Lote</th>
+                                            <th>Tempo (min)</th>
+                                            <th>Preço min</th>
+                                            <th>Total</th>
+                                        </tr>
+                                        {% for product_mo in products_mo %}
+                                        {% if product_mo.ID_BD_PROD == product.ID %}
+                                        {% set price_min = calculate_price_min(product_mo.ID_BD_PROD) %}
+                                        {% set labor_cost = calculate_labor_cost(product_mo.WORKERS_QUANTITY, product_mo.LOT_AMMOUNT, product_mo.TIME_TO_PRODUCE, price_min) %}
+                                        <tr>
+                                            <td>{{ product_mo.NAME }}</td>
+                                            <td>{{ product_mo.WORKERS_QUANTITY }}</td>
+                                            <td>{{ product_mo.LOT_AMMOUNT }}</td>
+                                            <td>{{ product_mo.TIME_TO_PRODUCE }}</td>
+                                            <td>{{ format_currency(price_min) }}</td>
+                                            <td>{{ format_currency(labor_cost) }}</td>
+                                        </tr>
+                                        {% endif %}
+                                        {% endfor %}
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <!-- Custo Total -->
+                        <table class="tabela">
+                            <tr>
+                                <th>Custo Total</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table class="tabela">
+                                        <tr>
+                                            <th>Valor</th>
+                                        </tr>
+                                        <tr>
+                                            <td>{{ calculate_total_cost(product.ID) }}</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    </td>
+                </tr>
+                {% endif %}
+            {% endfor %}
+        </table>
+        {% endfor %}
+    </section>
+</div>
+{% endblock %}

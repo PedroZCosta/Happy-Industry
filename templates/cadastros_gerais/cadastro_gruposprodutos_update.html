@@ -1,0 +1,22 @@
+{% extends 'standard.html' %}
+
+{% block head %}
+<title>Cadastro de Grupos de Produtos</title>
+{% endblock %}
+
+{% block body %}
+<section>
+    <h1>Cadastro de Grupos de Produtos</h1>
+    <div>
+        <section class="formulario">
+            <p>Alterar Grupo</p>
+            <form action="/cadastros_gerais_grupos_de_produtos_update/{{group.ID}}" method="POST">
+                <input type="text" name="name" id="name" value="{{group.NAME}}" maxlength="200" required autocomplete="off">
+                <br>
+                <br>
+                <input class="bt" type="submit" value="Alterar Grupo de Produtos">
+            </form>
+        </section>
+    </div>   
+</section>
+{% endblock %}

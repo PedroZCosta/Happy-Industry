@@ -1,0 +1,307 @@
+{% extends 'standard.html' %}
+
+{% block head %}
+<title>Movimentação de Compras</title>
+{% endblock %}
+
+
+{% block body %}
+<section>
+    {% if products_types|length < 1 %}
+        <h4>Ainda não existem tipos de produtos cadastrados, por favor cadastre um tipo de produto</h4>
+    {% elif suppliers|length < 1 %}
+        <h4>Ainda não existem fornecedores cadastrados, por favor cadastre um fornecedor</h4>
+    {% else %}
+    <h1>Movimentação de Compras</h1>
+    <hr></hr>
+        <section class = "format">
+            <h1>Entrada Materia Prima</h1>
+            <form action="/movimentacoes_compras_cadastros" method="POST">
+                <div class = "format">
+                    <p>Matérias Primas:</p>
+                    <input type="hidden" name="id_bd_product_type" id="id_bd_product_type" value="1" >
+                    <select name="id_bd_prod" id="id_bd_prod" required>
+                        {% for mp in mps %}
+                            <option value="{{ mp.ID }}">{{ mp.NAME }}</option>
+                        {% endfor %}
+                    </select>
+                    <p>Fornecedor:</p>
+                    <select name="id_bd_supplier" id="id_bd_supplier" required>
+                        {% for supplier in suppliers %}
+                            <option value="{{ supplier.ID }}">{{ supplier.NAME }}</option>
+                        {% endfor %}
+                    </select>
+                    <section>
+                        <p>Nº da NF:</p>
+                        <small>Formato: 000.000.000</small>
+                        <input type="text" name="nf_number" id="nf_number" maxlength="11" pattern="[0-9]{3}.[0-9]{3}.[0-9]{3}" placeholder="000.000.000" autocomplete="off" required>
+                    </section>
+                    <p>Data de Fatura:</p>
+                    <input type="date" name="nf_data" id="nf_data" autocomplete="off" required>
+                </div>
+                <div class =  "format">
+                    <p>Preço Unitário:</p>
+                    <input type="number" name="price" id="price" min="0" step="0.01" autocomplete="off" required>
+                    <p>Quantidade:</p>
+                    <input type="number" name="quantity" id="quantity" min="0" step="0.01" autocomplete="off" required>
+                    <p>Custo do Frete:</p>
+                    <input type="number" name="transport_cost" id="transport_cost" min="0" step="0.01" autocomplete="off" required>
+                </div>
+                <div class = "format">
+                    <input class="bt" type="submit" value="Salvar Entrada Materia Prima">
+                </div>
+            </form>
+        </section>
+
+        <section>
+            <hr></hr>
+
+            <h1>Entrada Material de Consumo</h1>
+            <form action="/movimentacoes_compras_cadastros" method="POST">
+                <div class = "format">
+                    <p> Matérial de Consumo: </p>
+                    <input type="hidden" name="id_bd_product_type" id="id_bd_product_type" value="2" >
+                    <select name="id_bd_prod" id="id_bd_prod" required>
+                        {% for mc in mcs %}
+                            <option value="{{ mc.ID }}">{{ mc.NAME }}</option>
+                        {% endfor %}
+                    </select>
+                    <p>Fornecedor:</p>
+                    <select name="id_bd_supplier" id="id_bd_supplier" required>
+                        {% for supplier in suppliers %}
+                            <option value="{{ supplier.ID }}">{{ supplier.NAME }}</option>
+                        {% endfor %}
+                    </select>
+                    <section>
+                        <p>Nº da NF:</p>
+                        <small>Formato: 000.000.000</small>
+                        <input type="text" name="nf_number" id="nf_number" maxlength="11" pattern="[0-9]{3}.[0-9]{3}.[0-9]{3}" placeholder="000.000.000" autocomplete="off" required>
+                    </section>
+                    <p>Data de Fatura:</p>
+                    <input type="date" name="nf_data" id="nf_data" autocomplete="off" required>
+                </div>
+                <div class = "format">
+                    <p>Preço Unitário:</p>
+                    <input type="number" name="price" id="price" min="0" step="0.01" autocomplete="off" required>
+                    <p>Quantidade:</p>
+                    <input type="number" name="quantity" id="quantity" min="0" step="0.01" autocomplete="off" required>
+                    <p>Custo do Frete:</p>
+                    <input type="number" name="transport_cost" id="transport_cost" min="0" step="0.01" autocomplete="off" required>
+                </div>
+                <div class = "format">
+                    <input class="bt" type="submit" value="Salvar Entrada Material de Consumo">
+                </div>
+            </form>
+        </section>
+
+        <!-- esta entrada sera adicionada quando tiver cadastro de outros produtos
+        <section>
+            <p>Outras Entradas</p>
+            <form action="/movimentacoes_compras_cadastros" method="POST">
+                <div>
+                    <p> Tipo de Material: </p>
+                    <input type="hidden" name="id_bd_product_type" id="id_bd_product_type" value="1" >
+                    <p> Material </p>
+                    <select name="id_bd_prod" id="id_bd_prod" required>
+                        {% for mp in mps %}
+                            <option value="{{ mp.ID }}">{{ mp.NAME }}</option>
+                        {% endfor %}
+                    </select>
+                    <p> Fornecedor </p>
+                    <select name="id_bd_supplier" id="id_bd_supplier" required>
+                        {% for supplier in suppliers %}
+                            <option value="{{ supplier.ID }}">{{ supplier.NAME }}</option>
+                        {% endfor %}
+                    </select>
+                    <section>
+                        <p>Nº da NF:</p>
+                        <small>Formato: 000.000.000</small>
+                        <input type="text" name="nf_number" id="nf_number" maxlength="11" pattern="[0-9]{3}.[0-9]{3}.[0-9]{3}" placeholder="000.000.000" autocomplete="off" required>
+                    </section>
+                    <p>Data de Fatura</p>
+                    <input type="data" name="nf_data" id="nf_data" autocomplete="off" required>
+                </div>
+                <div>
+                    <p>Preço Unitário:</p>
+                    <input type="number" name="price" id="price" min="0" step="0.01" autocomplete="off" required>
+                    <p>Quantidade:</p>
+                    <input type="number" name="quantity" id="quantity" min="0" step="0.01" autocomplete="off" required>
+                    <p>Quantidade:</p>
+                    <input type="number" name="transport_cost" id="transport_cost" min="0" step="0.01" autocomplete="off" required>
+                </div>
+                <div>
+                    <input type="submit" value="Salvar Entrada Materia Prima">
+                </div>
+            </form>
+        </section>
+        -->
+
+
+        <hr></hr>
+
+        <h1>Movimentações de compra</h1>
+        <table class="tabela">
+            <thead>
+                <tr>
+                    <th>Tipo</th>
+                    <th>Descrição</th>
+                    <th>Fornecedor</th>
+                    <th>NF</th>
+                    <th>Data NF</th>
+                    <th>Preço Unitário</th>
+                    <th>Quantidade</th>
+                    <th>U.M.</th>
+                    <th>Frete</th>
+                    <th>IPI</th>
+                    <th>DIFAL</th>
+                    <th>Preço Total</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for purchase in purchases %}
+                    <tr>
+                        {% set product_type = get_product_type(purchase.ID_BD_PRODUCT_TYPE) %}
+                        {% set product_info = get_product_info(purchase.ID_BD_PROD, purchase.ID_BD_PRODUCT_TYPE) %}
+                        {% set product_measure = get_product_measure(purchase.ID_BD_PROD, purchase.ID_BD_PRODUCT_TYPE) %}
+                        <td>{{ product_type.ABREVIATION }}</td>
+                        <td>{{ product_info.NAME if product_info else 'Outros' }}</td>
+                        <td>{{ get_supplier_name(purchase.ID_BD_SUPPLIER) }}</td>
+                        <td>{{ purchase.NF_NUMBER }}</td>
+                        <td>{{ purchase.NF_DATA }}</td>
+                        <td>{{ format_currency(purchase.PRICE) }}</td>
+                        <td>{{ purchase.QUANTITY }}</td>
+                        <td>{{ product_measure.ABREVIATION }}</td>
+                        <td>{{ format_currency(purchase.TRANSPORT_COST) }}</td>
+                        <td>{{ format_percentage(product_info.IPI if product_info else 0) }}</td>
+                        <td>{{ format_percentage(product_info.DIFAL) }}</td>
+                        <td>{{ format_currency(calculate_total_price(purchase.PRICE, purchase.QUANTITY, purchase.TRANSPORT_COST, product_info.DIFAL if product_info and 'DIFAL' in product_info.__dict__ else 0, product_info.IPI if product_info else 0)) }}</td>
+                        <td>
+                            <a href="/movimentacoes_compras_cadastros_deletar/{{purchase.ID}}">Excluir</a>
+                            <a href="/movimentacoes_compras_cadastros_update/{{purchase.ID}}">Alterar</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Formatação antes das funções
+        <section class="tabelas">
+            {% if purchases|length < 1 %}
+                <h4>Ainda Não Existem Compras Cadastradas</h4>
+            {% else %}
+            <p>Compras Cadastradas</p>
+                <table class="tabela">
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Descrição</th>
+                        <th>Fornecedor</th>
+                        <th>NF</th>
+                        <th>Data NF</th>
+                        <th>Preço Unitário</th>
+                        <th>Quantidade</th>
+                        <th>U.M.</th>
+                        <th>Frete</th>
+                        <th>IPI</th>
+                        <th>DIFAL</th>
+                        <th>Preço Unitário</th>
+                        <th>Ações</th>
+                    <tr>
+                    {% for purchase in purchases %}
+                    <tr>
+                        {% for product_type in products_types %}
+                            {% if product_type.ID == purchase.ID_BD_PRODUCT_TYPE %}
+                                <td>{{ product_type.ABREVIATION }}</td>
+                                {% if product_type.ID == 1 %}
+                                    {% for mp in mps %}
+                                        {% if mp.ID == purchase.ID_BD_PROD %}
+                                            <td>{{ mp.NAME }}</td>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% elif product_type.ID == 2 %}
+                                    {% for mc in mcs %}
+                                        {% if mc.ID == purchase.ID_BD_PROD %}
+                                            <td>{{ mc.NAME }}</td>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% else %}
+                                    <td> outros </td>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                        {% for supplier in suppliers %}
+                            {% if supplier.ID == purchase.ID_BD_SUPPLIER %}
+                                <td>{{ supplier.NAME }}</td>
+                            {% endif %}
+                        {% endfor %}
+                        <td>{{ purchase.NF_NUMBER }}</td>
+                        <td>{{ purchase.NF_DATA }}</td>
+                        <td>R$ {{ purchase.PRICE }}</td>
+                        <td>{{ purchase.QUANTITY }}</td>
+                        {% for product_type in products_types %}
+                            {% if product_type.ID == purchase.ID_BD_PRODUCT_TYPE %}
+                                {% if product_type.ID == 1 %}
+                                    {% for mp in mps %}
+                                        {% if mp.ID == purchase.ID_BD_PROD %}
+                                            {% for measure in measures %}
+                                                {% if measure.ID == mp.ID_BD_MEASURES %}
+                                                    <td>{{ measure.ABREVIATION }}</td>
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endif %}
+                                    {% endfor %}
+                                {% elif product_type.ID == 2 %}
+                                    {% for mc in mcs %}
+                                        {% if mc.ID == purchase.ID_BD_PROD %}
+                                            {% for measure in measures %}
+                                                {% if measure.ID == mc.ID_BD_MEASURES %}
+                                                    <td>{{ measure.ABREVIATION }}</td>
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endif %}
+                                    {% endfor %}
+                                {% else %}
+                                    <td> outros </td>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                        <td>R$ {{ purchase.TRANSPORT_COST }}</td>
+                        {% for product_type in products_types %}
+                            {% if product_type.ID == purchase.ID_BD_PRODUCT_TYPE %}
+                                <td>{{ product_type.ABREVIATION }}</td>
+                                {% if product_type.ID == 1 %}
+                                    {% for mp in mps %}
+                                        {% if mp.ID == purchase.ID_BD_PROD %}
+                                            <td>{{ mp.IPI }} %</td>
+                                            <td>0,00 %</td>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% elif product_type.ID == 2 %}
+                                    {% for mc in mcs %}
+                                        {% if mc.ID == purchase.ID_BD_PROD %}
+                                            <td>{{ mc.IPI }} %</td>
+                                            <td>{{ mc.DIFAL }} %</td>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% else %}
+                                    <td> outros </td>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                        <td>PREÇO</td>
+                        <td>
+                            <a href="/cadastros_de_entidades_fornecedores_deletar/{{purchase.ID}}">Excluir</a>
+                            <a href="/cadastros_de_entidades_fornecedores_update/{{purchase.ID}}">Alterar</a>
+                        </td>
+                        
+                        </tr> 
+                    {% endfor %}
+                </table>
+            {% endif %}
+        </section>
+        -->
+
+    {% endif %}
+</section>
+{% endblock %}
+

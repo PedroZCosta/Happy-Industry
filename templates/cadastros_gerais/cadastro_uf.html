@@ -1,0 +1,50 @@
+{% extends 'standard.html' %}
+
+{% block head %}
+<title>Cadastro de Unidades Federativas</title>
+{% endblock %}
+
+{% block body %}
+<section>
+    <h1>Cadastro de Unidades Federativas</h1>
+    <div>
+        <section class="formulario">
+            <h1>Cadastrar um País</h1>
+            <form action="/cadastros_gerais_unidades_federativas_cadastrar" method="POST">
+                <input type="text" name="name" id="name" maxlength="200" required autocomplete="off">
+                <input class="bt" type="submit" value="Adicionar Pais">
+            </form>
+        </section>
+        <section class="tabelas">
+            {% if countryes|length < 1 %}
+            <h4>Não Existem Países Cadastrados</h4>
+            </form>
+            {% else %}
+            <h1>Países Cadastrados</h1>
+            <table class="tabela">
+            <tr>
+                <th>Pais</th>
+                <th>Data adicionada</th>
+                <th>Ações</th>
+            </tr>
+            {% for country in countryes %}
+                <tr>
+                    <td>{{ country.NAME }}</td>
+                
+                    <td>{{ country.DATE_CREATED.date() }}</td>
+                    
+                    <td>
+                        <!--<a href="/cadastros_gerais_unidades_federativas_deletar/{{country.ID}}">Delete</a>-->
+                        <a href="/cadastros_gerais_unidades_federativas_update/{{country.ID}}">Alterar País</a>
+                        <br>
+                        <a href="/cadastros_gerais_unidades_federativas_cadastrar_estado/{{country.ID}}">Cadastrar Estado</a>
+                    </td>
+                
+                </tr> 
+            {% endfor %}
+            </table>
+            {% endif %}
+        </section>
+    </div>   
+</section>
+{% endblock %}

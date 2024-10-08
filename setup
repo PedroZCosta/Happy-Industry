@@ -1,0 +1,13 @@
+#Criando um ambiente virtual, copie e cole os seguintes passos no seu console:
+#pip install virtualenv
+#pip install --upgrade virtualenv
+#python -m venv env
+#caso não esteja funcionando abrir powershell e colar no pronmp "Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser"
+#env\scripts\activate
+#pip install --upgrade pip
+#pip install flask
+#pip install flask_sqlalchemy
+
+observacoes
+    {% %} = usado para if,for,else (statements) 
+    {{}} = usado para imprimir strings

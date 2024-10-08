@@ -1,0 +1,15 @@
+{% extends 'standard.html' %}
+
+{% block head %}
+<title>Industria Feliz - Inicio</title>
+{% endblock %}
+{% block body %}
+<section>
+    <div class= "popup" onclick="myFunction()">
+    <h1>{{ error_name }}<h1>
+        <form action ="{{ return_link }}" method = "POST">
+            <input class="bt" type="submit" value="Voltar">
+        </form>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'standard.html' %}
+
+{% block head %}
+<title>Cadastro de Encargos e Salários</title>
+{% endblock %}
+
+{% block body %}
+<section>
+    <h1>Cadastro de Encargos e Salários</h1>
+    <div>
+        <section class="formulario">
+            <h1>Cadastrar Encargos e Salários</h1>
+            <form action="/cadastros_de_entidades_encargos_e_salarios_cadastros" method="POST">
+                <p>Encargo</p>
+                <input type="text" name="name" id="name" maxlength="200" autocomplete="off" required>
+                <p>Renda</p>
+                <input type="number" name="rent" id="rent" min="0.01" step="0.01" autocomplete="off" required>
+                <br>
+                <input class="bt" type="submit" value="Cadastrar Encargo e Salário">
+            </form>
+        </section>
+        <section class="tabelas">
+            {% if jobs|length < 1 %}
+            <h4>Ainda Não Existem Encargos E Salários Cadastrados</h4>
+            {% else %}
+            <h1>Encargos Cadastrados</h1>
+            <table class="tabela">
+                <tr>
+                    <th>Nome</th>
+                    <th>Renda</th>
+                    <th>Data Criação</th>
+                    <th>Ações</th>
+                <tr>
+                {% for job in jobs %}
+                <tr>
+                    <td>{{ job.NAME }}</td>
+                    <td>{{ format_currency(job.RENT) }}</td>
+                    <td>{{ job.DATE_CREATED.date() }}</td>
+                    <td>
+                        <!-- <a href="/cadastros_de_entidades_encargos_e_salarios_deletar/{{job.ID}}">Excluir</a> -->
+                        <a href="/cadastros_de_entidades_encargos_e_salarios_update/{{job.ID}}">Alterar</a>
+                    </td>
+                    
+                    </tr> 
+                {% endfor %}
+            </table>
+            {% endif %}
+        </section>
+    </div>   
+</section>
+{% endblock %}

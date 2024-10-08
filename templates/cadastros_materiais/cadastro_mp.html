@@ -1,0 +1,73 @@
+{% extends 'standard.html' %}
+
+{% block head %}
+<title>Cadastro de Matérias Primas</title>
+{% endblock %}
+
+{% block body %}
+
+<section>
+
+    {% if measures|length < 1 %}
+        <h4>Ainda não existem medidas cadastradas, por favor cadastre uma medida para poder cadastrar materias primas</h4>
+    {% else %}
+
+        <h1>Cadastro de Matérias Primas</h1>
+        <div>
+            <section class="formulario">
+
+                <h1>Cadastrar Matéria Prima</h1>
+
+                <form action="/cadastros_de_materiais_materia_prima_cadastros" method="POST">
+                    <p>Matéria Prima</p>
+                    <input type="text" name="name" id="name" maxlength="200" autocomplete="off" required>
+                    <p>Medida</p>
+                    <select name="id_bd_measures" id="id_bd_measures" required>
+                        {% for measure in measures %}
+                        <option value="{{ measure.ID }}" > {{ measure.NAME }}</option>
+                        {% endfor %}
+                    </select>
+                    <p>IPI</p>
+                    <input type="number" name="ipi" id="ipi" min="0" step="0.01" autocomplete="off" required>
+                    <br>
+                    <br>
+                    <input class="bt" type="submit" value="Cadastrar Materia Prima">
+                </form>
+
+            </section>
+
+            <section class="tabelas">
+
+                {% if mps|length < 1 %}
+                    <h4>Ainda Não Existem Materias Primas Cadastradas</h4>
+                {% else %}
+
+                <h1>Matérias Primas Cadastradas</h1>
+                <table class="tabela">
+                    <tr>
+                        <th>Nome</th>
+                        <th>Unidade de Medida</th>
+                        <th>IPI</th>
+                        <th>Data Criação</th>
+                        <th>Ações</th>
+                    <tr>
+                    {% for mp in mps %}
+                    <tr>
+                        <td>{{ mp.NAME }}</td>
+                        <td>{{ get_measure(mp.ID_BD_MEASURES) }}
+                        <td>{{ format_percentage(mp.IPI) }}</td>
+                        <td>{{ mp.DATE_CREATED.date() }}</td>
+                        <td>
+                            <!--<a href="/cadastros_de_materiais_materia_prima_deletar/{{mp.ID}}">Excluir</a>-->
+                            <a href="/cadastros_de_materiais_materia_prima_update/{{mp.ID}}">Alterar</a>
+                        </td>
+                        
+                        </tr> 
+                    {% endfor %}
+                </table>
+                {% endif %}
+            </section>
+        </div>
+    {% endif %} 
+</section>
+{% endblock %}

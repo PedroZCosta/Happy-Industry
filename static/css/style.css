@@ -1,0 +1,144 @@
+*{
+    font-family: "Montserrat", sans-serif;
+}
+
+body{
+    border: solid black;
+    width: 100%;
+    display: flex;
+    background-color: rgb(23, 23, 34);
+    padding: 5px;
+    margin: 0;
+    color: white;
+
+}
+
+section{
+    display: block;
+    text-align: center;
+    padding: 5px;
+}
+
+
+
+div{
+    display: flex;
+    padding: 5px;
+    line-height: normal;
+    
+    
+}
+.format{
+    justify-content:center;
+    gap: 10px;
+    align-items: center;
+}
+.inputs input {
+    max-height: 20px;
+    text-align: center;
+    border-radius: 5px;
+
+}
+.inputs input:hover {
+    border:3px solid #080808;
+}
+
+.index input{
+    height: 40px;
+    max-width: 200px;
+    width: 100%;
+    background-color: #ffffff;
+    border-radius: 10px;
+    color: rgb(0, 0, 0);
+    font-size: 15px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+.index input:hover{
+    background-color: #DDa15e;
+    color: white;
+    transition: 0.3s;
+}
+.index h2 {
+    font-size: 50px;
+
+}
+.index{
+    border: double black 1px;
+    background-color: #2b2b2b9f;
+    border-radius: 30px;
+    min-width: 300px;
+    width: 40vh;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.popup {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+  }
+.formulario .bt {
+    border-radius: 7px;
+}
+.formulario .bt:hover {
+    background-color: #DDa15e;
+    color: white;
+    transition: 0.3s;
+}
+.popuptext {
+    width: 160px;
+    background-color: FFAF1;
+    color: #080808;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px;
+    z-index: 1;
+    bottom: 105%;
+    left: 50%;
+    margin-left: -80px;
+  }
+
+.tabelas {
+    text-align: center;
+    border-radius: 10px;
+    background-color: #2b2b2b9f;
+    padding: 10px;
+    border-collapse: collapse;
+}
+
+.tabelas table {
+    display: inline-block; 
+    margin: 0 auto; 
+}
+
+.tabela{
+    border-radius: 10px;
+    background-color: #2b2b2b9f;
+    padding: 10px;
+    border-collapse: collapse;
+}
+
+  
+.tabela th {
+    border: white 1px solid;
+    border-radius: 5px;
+    padding: 5px;
+
+}
+
+.tabela td {
+    border: white 1px solid;
+    border-radius: 5px;
+    padding: 5px;
+
+}
+
+a{
+    color: antiquewhite;
+}
+
+a:hover{
+    color: #DDa15e;
+    
+}

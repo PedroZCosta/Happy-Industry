@@ -1,0 +1,52 @@
+p{
+    font-weight: bold;
+    text-align: center;
+    margin-top: 70px;
+}
+h4{
+    font-size: 25px;
+}
+.column_2 {
+    margin-top: 70px;
+}
+.column_2 tr {
+    display: flex;
+    justify-content: space-evenly;
+    border: 1px black solid;
+    text-align: center;
+    margin-left: 50px;
+    width:100%;
+}
+.column_2 td {
+    align-items: center;
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-left: 50px
+    
+}
+.column_2 th {
+    display: flex;
+    justify-content: space-evenly;
+    text-align: center;
+}
+.column_2 a{
+    
+    background-color: white;
+    color: black;
+    text-decoration: none;
+    border: 1px black solid;
+    padding: 2px;
+    transition: 0.3s;
+    border-radius: 3px;
+    height: 20px;
+    margin-top: 29px;
+}
+.column_2 a:hover {
+    background-color: rgb(18, 143, 226);
+    color: white;
+    transition: 0.3s;
+}
+/* python industriaFeliz.py

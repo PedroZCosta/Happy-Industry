@@ -1,0 +1,36 @@
+{% extends 'standard.html' %}
+
+{% block head %}
+<title>Cadastro de Produtos</title>
+{% endblock %}
+
+{% block body %}
+<section>
+    <h1>Cadastro de Produtos</h1>
+    <div class="">
+        <section class="">
+
+            <h1>Alterar Matéria Prima Produto</h1>
+
+            <form action="/cadastros_de_materiais_materia_prima_update/{{mp.ID}}" method="POST">
+                <p>Matéria Prima</p>
+                <input type="text" name="name" id="name" value="{{mp.NAME}}" maxlength="200" autocomplete="off" required>
+                <p>Medida</p>
+                <select name="id_bd_measures" id="id_bd_measures" required>
+                    {% for measure in measures %}
+                        {% if measure.ID == mp.ID_DB_MEASURES %}
+                            <option value="{{ measure }}" > {{ measure.NAME }}</option>
+                        {% endif %}
+                    {% endfor %}
+                    {% for measure in measures %}
+                        <option value="{{ measure.ID }}" > {{ measure.NAME }}</option>
+                    {% endfor %}
+                </select>
+                <p>IPI</p>
+                <input type="number" name="ipi" id="ipi" value="{{mp.IPI}}" min="0" step="0.01" autocomplete="off" required>
+                <br>
+                <br>
+                <input class="bt" type="submit" value="Alterar Matéria Prima">
+            </form>
+        </section>
+{% endblock %}

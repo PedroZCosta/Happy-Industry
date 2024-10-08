@@ -1,0 +1,75 @@
+{% extends 'standard.html' %}
+
+{% block head %}
+<title>Cadastro de Produtos</title>
+{% endblock %}
+
+
+{% block body %}
+
+<section>
+
+    {% if groups|length < 1 %}
+        <h4>Ainda não existem grupos de produtos cadastrados, por favor cadastre um grupo de produto</h4>
+    {% else %}
+
+        <h1>Cadastro de Produtos</h1>
+        <div>
+            <section class="formulario">
+
+                <h1>Cadastrar Produto</h1>
+
+                <form action="/cadastros_de_materiais_produtos_cadastros" method="POST">
+                    <p>Produto</p>
+                    <input type="text" name="name" id="name" maxlength="200" autocomplete="off" required>
+                    <p>Grupo</p>
+                    <select name="id_bd_group" id="id_bd_group" required>
+                        {% for group in groups %}
+                            <option value="{{ group.ID }}" > {{ group.NAME }}</option>
+                        {% endfor %}
+                    </select>
+                    <p>Código de Referencia</p>
+                    <input type="text" name="cod" id="cod" maxlength="20" autocomplete="off" >
+                    <br>
+                    <br>
+                    <input class="bt" type="submit" value="Cadastrar Produto">
+                </form>
+
+            </section>
+
+            <section class="tabelas">
+
+                {% if products|length < 1 %}
+                    <h4>Ainda Não Existem Produtos Cadastrados</h4>
+                {% else %}
+
+                <h1>Produtos Cadastrados</h1>
+                <table class="tabela">
+                    <tr>
+                        <th>Produto</th>
+                        <th>Grupo</th>
+                        <th>Código Referencia</th>
+                        <th>Data</th>
+                        <th>Ações</th>
+                    <tr>
+                    {% for product in products %}
+                    <tr>
+                        <td>{{ product.NAME }}</td>
+                        <td>{{ get_group(product.ID_BD_GROUP) }}</td>
+                        <td>{{ product.COD }}
+                        <td>{{ product.DATE_CREATED.date() }}</td>
+                        <td>
+                            <!-- <a href="/cadastros_de_materiais_produtos_cadastros_deletar/{{product.ID}}">Excluir</a> -->
+                            <a href="/cadastros_de_materiais_produtos_update/{{product.ID}}">Alterar/Inserir Custos</a>
+                        </td>
+                        
+                        </tr> 
+                    {% endfor %}
+                </table>
+                {% endif %}
+        
+            </section>
+        </div>
+    {% endif %} 
+</section>
+{% endblock %}

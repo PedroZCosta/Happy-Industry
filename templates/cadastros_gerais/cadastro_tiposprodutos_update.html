@@ -1,0 +1,25 @@
+{% extends 'standard.html' %}
+
+{% block head %}
+<title>Cadastro de Tipos de Produtos</title>
+{% endblock %}
+
+{% block body %}
+<section>
+    <h1>Cadastro de Tipos de Produtos</h1>
+    <div>
+        <section class="formulario">
+            <h1>Alterar Tipo de Produto</h1>
+            <form action="/cadastros_gerais_tipos_de_produtos_update/{{type.ID}}" method="POST">
+                <p>Tipo</p>
+                <input type="text" name="name" id="name" value="{{type.NAME}}" maxlength="200" autocomplete="off" required>
+                <p>Abreviação</p>
+                <input type="text" name="abreviation" id="abreviation" value="{{type.ABREVIATION}}" maxlength="10" autocomplete="off" required>
+                <br>
+                <br>
+                <input class="bt" type="submit" value="Alterar Tipo de Produto">
+            </form>
+        </section>
+    </div>   
+</section>
+{% endblock %}

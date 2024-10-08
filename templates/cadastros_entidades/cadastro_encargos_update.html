@@ -1,0 +1,25 @@
+{% extends 'standard.html' %}
+
+{% block head %}
+<title>Cadastro de Encargos e Salários</title>
+{% endblock %}
+
+{% block body %}
+<section>
+    <h1>Cadastro de Encargo/Salário</h1>
+    <div>
+        <section class="formulario">
+            <h1>Alterar Encargo/Salario</h1>
+            <form action="/cadastros_de_entidades_encargos_e_salarios_update/{{job.ID}}" method="POST">
+                <p>Encargo</p>
+                <input type="text" name="name" id="name" value="{{job.NAME}}" maxlength="200" autocomplete="off" required>
+                <p>Renda</p>
+                <input type="number" name="rent" id="rent" min="0.01" step="0.01" value="{{job.RENT}}" autocomplete="off" required>
+                <br>
+                <br>
+                <input class="bt" type="submit" value="Alterar Encargo/Salario">
+            </form>
+        </section>
+    </div>   
+</section>
+{% endblock %}

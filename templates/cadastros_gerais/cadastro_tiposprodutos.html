@@ -1,0 +1,54 @@
+{% extends 'standard.html' %}
+
+{% block head %}
+<title>Cadastro de Tipos de Produtos</title>
+{% endblock %}
+
+{% block body %}
+<section>
+    <h1>Cadastro de Tipos de Produtos</h1>
+    <div>
+        <section class="formulario">
+            <h1>Cadastrar um Tipo de Produto</h1>
+            <form action="/cadastros_gerais_tipos_de_produtos_cadastrar" method="POST">
+                <p>Tipo</p>
+                <input type="text" name="name" id="name" maxlength="200" autocomplete="off" required>
+                <p>Abreviação</p>
+                <input type="text" name="abreviation" id="abreviation" maxlength="10" autocomplete="off" required>
+                <br>
+                <br>
+                <input class="bt" type="submit" value="Cadastrar Tipo de Produto">
+            </form>
+        </section>
+        <section class="tabelas">
+            {% if types|length < 1 %}
+            <h4>Ainda Não Existem Tipos de Produtos Cadastrados</h4>
+            {% else %}
+            <h1>Tipos de Produtos Cadastrados</h1>
+            <table class="tabela">
+                <tr>
+                    <th>Nome</th>
+                    <th>Abreviação</th>
+                    <th>Data Criação</th>
+                    <th>Ação</th>
+                <tr>
+                {% for type in types %}
+                <tr>
+                    <td>{{ type.NAME }}</td>
+                    <td>{{ type.ABREVIATION }}</td>
+                    <td>{{ type.DATE_CREATED.date() }}</td>
+                    <td>
+                        {% if type.ID < 3 %}
+                        {% else %}
+                        <!--<a href="/cadastros_gerais_tipos_de_produtos_deletar/{{type.ID}}">Excluir</a>-->
+                        <a href="/cadastros_gerais_tipos_de_produtos_update/{{type.ID}}">Alterar</a>
+                        {% endif %}
+                    </td>
+                    
+                    </tr> 
+                {% endfor %}
+            {% endif %}
+        </section>
+    </div>   
+</section>
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends 'standard.html' %}
+
+{% block head %}
+<title>Movimentação de Compras</title>
+{% endblock %}
+
+
+{% block body %}
+<section>
+    <h1>Movimentação de Compras</h1>
+        <section class = "format">
+            <h1>Alterar {{ purchase.ID_BD_PRODUCT_TYPE }} </h1>
+            <form action="/movimentacoes_compras_cadastros_update/{{purchase.ID}}" method="POST">
+                <div class="format">
+                    {% set product_info = get_product_info(purchase.ID_BD_PROD, purchase.ID_BD_PRODUCT_TYPE) %}
+                    <p>Produto: {{ product_info.NAME if product_info else 'Outros' }}</p>
+                </div>
+                <div class="format">
+                    <p>Fornecedor: {{ get_supplier_name(purchase.ID_BD_SUPPLIER) }}</p>
+                </div>
+                <hr></hr>
+
+                <div class="format">
+                    <section>
+                        <p>Nº da NF:</p>
+                        <small>Formato: 000.000.000</small>
+                        <input type="text" name="nf_number" id="nf_number" value="{{ purchase.NF_NUMBER }}" maxlength="11" pattern="[0-9]{3}.[0-9]{3}.[0-9]{3}" placeholder="000.000.000" autocomplete="off" required>
+                    </section>
+                    <p>Data de Fatura:</p>
+                        <input type="date" name="nf_data" id="nf_data" value="{{ purchase.NF_DATA }}" autocomplete="off" required>
+                    
+                </div>
+                <div class="format">
+                    <p>Preço Unitário:</p>
+                    <input type="number" name="price" id="price" min="0" value="{{ purchase.PRICE }}" step="0.01" autocomplete="off" required>
+                    <p>Quantidade:</p>
+                    <input type="number" name="quantity" id="quantity" min="0" value="{{ purchase.QUANTITY }}" step="0.01" autocomplete="off" required>
+                    <p>Custo do Frete:</p>
+                    <input type="number" name="transport_cost" id="transport_cost" value="{{ purchase.TRANSPORT_COST }}" min="0" step="0.01" autocomplete="off" required>
+                </div>
+                <hr></hr>
+                <div class="format">
+                    <input class="bt" type="submit" value="Salvar Alteração da Movimentação">
+                </div>
+            </form>
+        </section>
+
+</section>
+{% endblock %}
+

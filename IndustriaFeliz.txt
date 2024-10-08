@@ -1,0 +1,11 @@
+@echo off
+pushd C:\IndustriaFeliz
+call env\scripts\activate
+python IndustriaFeliz.py
+
+
+
+@echo off: This command turns off command echoing in the batch file, so commands are not displayed in the console as they are executed.
+pushd C:\IndustriaFeliz: This command changes the current directory to C:\IndustriaFeliz.
+call env\scripts\activate: This command activates the virtual environment located in the env directory under C:\IndustriaFeliz. The call command is used to ensure that control returns to the batch file after activating the virtual environment.
+python IndustriaFeliz.py: This command runs the Python script named IndustriaFeliz.py

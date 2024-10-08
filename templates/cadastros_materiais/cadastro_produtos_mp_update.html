@@ -1,0 +1,23 @@
+{% extends 'standard.html' %}
+
+{% block head %}
+<title>Cadastro de Matérias Primas</title>
+{% endblock %}
+
+{% block body %}
+<section>
+    <h1>Cadastro de Matérias Primas</h1>
+    <div>
+        <section class="formulario">
+            <h1>Alterar Matéria Prima</h1>
+            <form action="/cadastros_de_materiais_produtos_alterar_mp/{{product.ID}}/{{product_mp.ID}}" method="POST">
+                <p>Nova Quantidade</p>
+                <input type="number" name="quantity" id="quantity" value="{{ product_mp.QUANTITY }}" step="0.001" min="0.00" autocomplete="off" required>
+                <div class = "format">
+                    <input class="bt" type="submit" value="Salvar Alteração Matéria Prima">
+                </div>
+            </form>
+        </section>
+    </div>   
+</section>
+{% endblock %}

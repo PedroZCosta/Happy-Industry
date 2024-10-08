@@ -1,0 +1,48 @@
+{% extends 'standard.html' %}
+
+{% block head %}
+<title>Cadastro de Grupos de Produtos</title>
+{% endblock %}
+
+{% block body %}
+<section>
+    <h1>Cadastro de Grupos de Produtos</h1>
+    <div>
+        <section class="formulario">
+            <h1>Cadastrar um Grupo de Produto</h1>
+            <form action="/cadastros_gerais_grupos_de_produtos_cadastrar" method="POST">
+                <p>Grupo</p>
+                <input type="text" name="name" id="name" autocomplete="off" maxlength="200" required>
+                <br>
+                <br>
+                <input class="bt" type="submit" value="Cadastrar Grupo de Produtos">
+            </form>
+        </section>
+        <section class="tabelas">
+            {% if groups|length < 1 %}
+                <h4>Ainda Não Existem Grupos de Produtos Cadastrados</h4>
+            {% else %}
+                <h1>Grupos Cadastrados</h1>
+                <table class="tabela">
+                    <tr>
+                        <th>Nome</th>
+                        <th>Data Criação</th>
+                        <th>Ações</th>
+                    <tr>
+                    {% for group in groups %}
+                    <tr>
+                        <td>{{ group.NAME }}</td>
+                        <td>{{ group.DATE_CREATED.date() }}</td>
+                        <td>
+                            <!--<a href="/cadastros_grupos_de_produtos_deletar/{{group.ID}}">Excluir</a>-->  
+                            <a href="/cadastros_gerais_grupos_de_produtos_update/{{group.ID}}">Alterar</a>
+                        </td>
+                        
+                        </tr> 
+                    {% endfor %}
+                </table>
+            {% endif %}
+        </section>
+    </div>   
+</section>
+{% endblock %}

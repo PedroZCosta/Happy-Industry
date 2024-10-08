@@ -1,0 +1,181 @@
+{% extends 'standard.html' %}
+
+{% block head %}
+<title>Cadastro de Colaboradores</title>
+{% endblock %}
+
+{% block body %}
+<section>
+        <h1>Cadastro de Colaboradores</h1>
+        <hr></hr>
+        <section class = "format">
+            <h1>Alterar Colaborador</h1>
+            <div>
+                <form action="/cadastros_de_entidades_colaboradores_update/{{worker.ID}}" method="POST">
+                    <div class = "format">
+                        <p>Nome</p>
+                        <input type="text" name="name" id="name" value="{{worker.NAME}}" maxlength="200" autocomplete="off" required>
+                        <p>Função</p>
+                        <select name="id_bd_job" id="id_bd_job" required>
+                            {% for job in jobs %}
+                                {% if job.ID == worker.ID_BD_JOB %}
+                                    <option value="{{ job.ID }}" > {{ job.NAME }}</option>
+                                {% endif %}
+                            {% endfor %}
+                            {% for job in jobs %}
+                                {% if job.ID != worker.ID_BD_JOB %}
+                                    <option value="{{ job.ID }}" > {{ job.NAME }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                        <p>Data Admissão</p>
+                        <input type="date" name="admission_date" id="admission_date" value="{{worker.ADMISSION_DATE}}" autocomplete="off" required>
+
+                    </div>
+                    <hr></hr>
+
+                    <h1>Endereço Completo</h1>
+                    <div class ="format">
+                        <p>País</p>
+                        <select name="id_bd_country" id="id_bd_country" required>
+                            {% for country in countryes %}
+                                {% if country.ID == worker.ID_BD_COUNTRY %}
+                                    <option value="{{ country.ID }}" > {{ country.NAME }}</option>
+                                {% endif %}
+                            {% endfor %}
+                            {% for country in countryes %}
+                                {% if country.ID != worker.ID_BD_COUNTRY %}
+                                    <option value="{{ country.ID }}" > {{ country.NAME }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                        <p>Estado</p>
+                        <select name="id_bd_estate" id="id_bd_estate" required>
+                            {% for estate in estates %}
+                                {% if estate.ID == worker.ID_BD_ESTATE%}
+                                    <option value="{{ estate.ID }}" > {{ estate.NAME }}</option>
+                                {% endif %}
+                            {% endfor %}
+                            {% for estate in estates %}
+                                {% if estate.ID != worker.ID_BD_ESTATE and estate.ID_BD_COUNTRY == worker.ID_BD_COUNTRY %}
+                                    <option value="{{ estate.ID }}" > {{ estate.NAME }}</option>
+                                {% endif %}
+                            {% endfor %}
+                            <!-- <option value="">Selecione um estado</option> -->
+                        </select>
+                        <p>Cidade</p>
+                        <select name="id_bd_city" id="id_bd_city" required>
+                            {% for city in cityes %}
+                                {% if city.ID == worker.ID_BD_CITY %}
+                                    <option value="{{ city.ID }}" > {{ city.NAME }}</option>
+                                {% endif %}
+                            {% endfor %}
+                            {% for city in cityes %}
+                                {% if city.ID != worker.ID_BD_CITY and city.ID_BD_ESTATE == worker.ID_BD_ESTATE %}
+                                    <option value="{{ city.ID }}" > {{ city.NAME }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>  
+                        <p>Bairro</p>
+                        <input type="text" name="district" id="district" value="{{worker.DISTRICT}}" maxlength="200" autocomplete="off" required>
+                    </div>
+                    <div class = "format">
+                        <p>Rua</p>
+                        <input type="text" name="road" id="road" value="{{worker.ROAD}}" maxlength="200" autocomplete="off" required>
+                        <p>Número</p>
+                        <input type="number" name="number" id="number" min="0" step="1" value="{{worker.NUMBER}}" autocomplete="off" required>
+                        <p>Complemento</p>
+                        <input type="text" name="complement" id="complement" value="{{worker.COMPLEMENT}}" maxlength="200" autocomplete="off" required>
+                        <section>
+                            <p>CEP</p>
+                            <small>formato: 00000-000</small>
+                        </section>
+                        <input type="text" name="cep" id="cep" pattern="[0-9]{5}-[0-9]{3}" value="{{worker.CEP}}" placeholder="00000-000" autocomplete="off" required>
+                    </div>    
+                    <hr></hr>
+
+                    <h1>Dados Pessoais</h1>
+                    <div class = "format">
+                        <p>Data Nascimento</p>
+                        <input type="date" name="born_date" id="born_date" value="{{worker.BORN_DATE}}" autocomplete="off" required>
+                        <p>E-mail</p>
+                        <input type="email" name="email" id="email" value="{{worker.EMAIL}}" maxlength="200" autocomplete="off" required>
+                        <section>
+                            <p>Telefone</p>
+                            <small>Formato: 099-99999-9999</small>
+                        </section>
+                        <input type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{5}-[0-9]{4}" value="{{worker.PHONE}}" placeholder="099-99999-9999" required>  
+                    </div>
+                    
+                    <div class = "format">
+                        <section class = "format">
+                            <p>CPF</p>
+                            <small>Formato: 000.000.000-00</small>
+                        </section>
+                        <input type="text" name="cpf" id="cpf" pattern="[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}" value="{{worker.CPF}}" placeholder="000.000.000-00" autocomplete="off" required>
+                        <p>RG</p>
+                        <input type="text" name="rg" id="rg" maxlength="14" value="{{worker.RG}}" autocomplete="off" required>
+                        <section>
+                            <p>PIS</p>
+                            <small>Formato: 000.00000.00-00</small>
+                        </section>
+                       
+                        <input type="text" name="pis" id="pis" pattern="[0-9]{3}.[0-9]{5}.[0-9]{2}-[0-9]{2}" value="{{worker.PIS}}" placeholder="000.00000.00-00" autocomplete="off" required>
+                    </div>  
+                    <hr></hr>
+  
+                    <h1>O Cadastro está</h1>
+                    <input type="radio" name="active" value="0" id="inactive" required> 
+                    <label for="inactive">Inativo</label><br>
+                    <input type="radio" name="active" value="1" id="active"> 
+                    <label for="active">Ativo</label><br>
+                    <br>
+                    <input class="bt" type="submit" value="Alterar Colaborador">
+                </form>
+            </div>
+        </section>
+</section>
+   
+
+
+<!-- Este Script não é de nossa autoria-->
+<script>
+    // Function to fetch states based on selected country
+    function fetchStates(countryId) {
+        fetch('/get_states/' + countryId)
+            .then(response => response.json())
+            .then(data => {
+                const statesDropdown = document.getElementById('id_bd_estate');
+                statesDropdown.innerHTML = '<option value="">Selecione um estado</option>';
+                data.forEach(state => {
+                    statesDropdown.innerHTML += `<option value="${state.ID}">${state.NAME}</option>`;
+                });
+            });
+    }
+
+    // Function to fetch cities based on selected state
+    function fetchCities(stateId) {
+        fetch('/get_cities/' + stateId)
+            .then(response => response.json())
+            .then(data => {
+                const citiesDropdown = document.getElementById('id_bd_city');
+                citiesDropdown.innerHTML = '<option value="">Selecione uma cidade</option>';
+                data.forEach(city => {
+                    citiesDropdown.innerHTML += `<option value="${city.ID}">${city.NAME}</option>`;
+                });
+            });
+    }
+
+    // Event listener for country selection
+    document.getElementById('id_bd_country').addEventListener('change', function() {
+        const countryId = this.value;
+        fetchStates(countryId);
+    });
+
+    // Event listener for state selection
+    document.getElementById('id_bd_estate').addEventListener('change', function() {
+        const stateId = this.value;
+        fetchCities(stateId);
+    });
+</script>
+{% endblock %}

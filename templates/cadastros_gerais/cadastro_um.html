@@ -1,0 +1,51 @@
+{% extends 'standard.html' %}
+
+{% block head %}
+<title>Cadastro de Unidades de Medidas</title>
+{% endblock %}
+
+{% block body %}
+<section>
+    <h1>Cadastro de Unidades de Medidas</h1>
+    <div>
+        <section class="formulario">
+            <h1>Cadastrar Unidade de Medida</h1>
+            <form action="/cadastros_gerais_unidades_de_medidas_cadastrar" method="POST">
+                <p>Medida</p>
+                <input type="text" name="name" id="name" maxlength="200" autocomplete="off" required>
+                <p>Abreviação</p>
+                <input type="text" name="abreviation" id="abreviation" maxlength="10" autocomplete="off" required>
+                <br>
+                <br>
+                <input class="bt" type="submit" value="Cadastrar Unidade de Medida">
+            </form>
+        </section>
+        <section class="tabelas">
+            {% if measures|length < 1 %}
+            <h4>Ainda Não Existem Unidades de Medida Cadastradas</h4>
+            {% else %}
+            <h1>Unidades de Medidas Cadastrados</h1>
+            <table class="tabela">
+                <tr>
+                    <th>Nome</th>
+                    <th>Abreviação</th>
+                    <th>Data Criação</th>
+                    <th>Ações</th>
+                <tr>
+                {% for measure in measures %}
+                    <tr>
+                        <td>{{ measure.NAME }}</td>
+                        <td>{{ measure.ABREVIATION }}</td>
+                        <td>{{ measure.DATE_CREATED.date() }}</td>
+                        <td>
+                            <!--<a href="/cadastros_gerais_unidades_de_medidas_deletar/{{measure.ID}}">Excluir</a>-->   
+                            <a href="/cadastros_gerais_unidades_de_medidas_update/{{measure.ID}}">Alterar</a>
+                        </td>
+                    </tr> 
+                {% endfor %}
+            </table>
+            {% endif %}
+        </section>
+    </div>   
+</section>
+{% endblock %}

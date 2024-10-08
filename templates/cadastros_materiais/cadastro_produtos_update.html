@@ -1,0 +1,188 @@
+{% extends 'standard.html' %}
+
+{% block head %}
+<title>Cadastro de Produtos</title>
+{% endblock %}
+
+
+{% block body %}
+
+<section>
+        <h1>Cadastro de Produtos</h1>
+        <div class="">
+            <section class="">
+
+                <h1>Alterar Produto</h1>
+
+                <form action="/cadastros_de_materiais_produtos_update/{{ product.ID }}" method="POST">
+                    <p>Produto</p>
+                    <input type="text" name="name" id="name" value="{{ product.NAME }}" maxlength="200" autocomplete="off" required>
+                    <p>Grupo</p>
+                    <select name="id_bd_group" id="id_bd_group" required>
+                        {% for group in groups %}
+                            {% if group.ID == product.ID_BD_GROUP %}
+                                <option value="{{ group.ID }}" > {{ group.NAME }}</option>
+                            {% endif %}
+                        {% endfor %}
+                        {% for group in groups %}
+                            <option value="{{ group.ID }}" > {{ group.NAME }}</option>
+                        {% endfor %}
+                    </select>
+                    <p>Código de Referencia</p>
+                    <input type="text" name="cod" id="cod" value="{{ product.COD }}" maxlength="20" autocomplete="off" >
+                    <br>
+                    <br>
+                    <input class="bt" type="submit" value="Alterar Produto">
+                </form>
+            </section>
+            <hr></hr>
+
+            <section>
+                <h1> Matéria Prima </h1>
+                <section class="tabelas">
+                    <p>Quantidade Consumida por Item</p>
+                    <table class="tabela">
+                        <tr>
+                            <th>Material</th>
+                            <th>Quantidade</th>
+                            <th>U.M.</th>
+                            <th>Ações</th>
+                        </tr>
+                        {% for product_mp in products_mp %}
+                        <tr>
+                            {% if product_mp.ID_BD_PROD == product.ID %}
+                                {% set product_measure = get_product_measure(product_mp.ID_BD_MP, 1) %}
+                                <td>{{ get_db_mp(product_mp.ID_BD_MP).NAME }}</td>
+                                <td>{{ product_mp.QUANTITY }}</td>
+                                <td>{{ product_measure.NAME }}
+                                <td>
+                                    <a href="/cadastros_de_materiais_produtos_deletar_mp/{{product.ID}}/{{product_mp.ID}}">Excluir</a>
+                                    <a href="/cadastros_de_materiais_produtos_alterar_mp/{{product.ID}}/{{product_mp.ID}}">Alterar</a>
+                                </td>
+                            {% endif %}
+                        </tr>
+                        {% endfor %} 
+                    </table>
+                </section>
+                <section class="format">
+
+                    <h1>Cadastrar Matéria Prima no Produto</h1>
+    
+                    <form action="/cadastros_de_materiais_produtos_cadastros_mp/{{ product.ID }}" method="POST">
+                        <input type="hidden" name="id_bd_prod" id="id_bd_prod" value="{{ product.ID }}" required>
+                        <p>Matéria Prima</p>
+                        <select name="id_bd_mp" id="id_bd_mp" required>
+                            {% for mp in mps %}
+                                <option value="{{ mp.ID }}" > {{ mp.NAME }} / {{ get_measureabv(mp.ID_BD_MEASURES) }}</option>
+                            {% endfor %}
+                        </select>
+                        <p>Quantidade Utilizada Por Produtos</p>
+                        <input type="number" name="quantity" id="quantity" step="0.001" min="0.00" autocomplete="off" required>
+                        <br>
+                        <br>
+                        <input type="submit" value="Cadastrar Materia Prima no Produto">
+                    </form>
+                </section>
+            </section>
+            <hr></hr>
+            <section>
+                <h1> Material de Consumo </h1>
+                <section class="tabelas">
+                    <p>Peças Produzidas Por Item</p>
+                    <table class="tabela">
+                        <tr>
+                            <th>Material</th>
+                            <th>Peças/Unidade</th>
+                            <th>U.M.</th>
+                            <th>Ações</th>
+                        </tr>
+                        {% for product_mc in products_mc %}
+                        <tr>
+                            {% if product_mc.ID_BD_PROD == product.ID %}
+                                {% set product_measure = get_product_measure(product_mc.ID_BD_MC, 2) %}
+                                <td>{{ get_db_mc(product_mc.ID_BD_MC).NAME }}</td>
+                                <td>{{ product_mc.QUANTITY }}</td>
+                                <td>{{ product_measure.NAME }}
+                                <td>
+                                    <a href="/cadastros_de_materiais_produtos_deletar_mc/{{product.ID}}/{{product_mc.ID}}">Excluir</a>
+                                    <a href="/cadastros_de_materiais_produtos_alterar_mc/{{product.ID}}/{{product_mc.ID}}">Alterar</a>
+                                </td>
+                            {% endif %}
+                        </tr>
+                        {% endfor %} 
+
+                    </table>
+                </section>
+                <section class="format">
+
+                    <h1>Cadastrar Material de Consumo no Produto</h1>
+    
+                    <form action="/cadastros_de_materiais_produtos_cadastros_mc/{{ product.ID }}" method="POST">
+                        <input type="hidden" name="id_bd_prod" id="id_bd_prod" value="{{ product.ID }}" required>
+                        <p>Material de Consumo</p>
+                        <select name="id_bd_mc" id="id_bd_mc" required>
+                            {% for mc in mcs %}
+                                <option value="{{ mc.ID }}" > {{ mc.NAME }} / {{ get_measureabv(mc.ID_BD_MEASURES) }}</option>
+                            {% endfor %}
+                        </select>
+                        <p>Quantidade Produzida por Unidade</p>
+                        <input type="number" name="quantity" id="quantity" step="0.01" min="0" autocomplete="off" required>
+                        <br>
+                        <br>
+                        <input type="submit" value="Cadastrar Material de Consumo ao Produto">
+                    </form>
+                </section>
+            </section>
+            <hr></hr>
+            <section>
+                <h1> Mão de Obra </h1>
+                <section class="tabelas">
+                    <p>Peças Produzidas Por Minutos</p>
+                    <table class="tabela">
+                        <tr>
+                            <th>Procedimento</th>
+                            <th>OP</th>
+                            <th>Tamanho do Lote</th>
+                            <th>Tempo Para Produzir (min)</th>
+                            <th>Ações</th>
+                        </tr>
+                        {% for product_mo in products_mo %}
+                            {% if product_mo.ID_BD_PROD == product.ID %}
+                                <tr>
+                                    <td>{{ product_mo.NAME }}</td>
+                                    <td>{{ product_mo.WORKERS_QUANTITY }}</td>
+                                    <td>{{ product_mo.LOT_AMMOUNT }}</td>
+                                    <td>{{ product_mo.TIME_TO_PRODUCE }}</td>
+                                    <td>
+                                        <a href="/cadastros_de_materiais_produtos_deletar_mo/{{product.ID}}/{{product_mo.ID}}">Excluir</a>
+                                        <a href="/cadastros_de_materiais_produtos_alterar_mo/{{product.ID}}/{{product_mo.ID}}">Alterar</a>
+                                    </td>
+                                </tr> 
+                            {% endif %}
+                        {% endfor %} 
+                    </table>
+                </section>
+                <section class="format">
+
+                    <h1>Cadastrar Mão de Obra no Produto</h1>
+    
+                    <form action="/cadastros_de_materiais_produtos_cadastros_mo/{{ product.ID }}" method="POST">
+                        <input type="hidden" name="id_bd_prod" id="id_bd_prod" value="{{ product.ID }}" required>
+                        <p>Mão de Obra</p>
+                        <p>Descrição do Procedimento</p>
+                        <input type="text" name="name" id="name" maxlength="200" autocomplete="off" required>
+                        <p>Número de Operadores Necessários</p>
+                        <input type="number" name="workers_quantity" id="workers_quantity" step="1" min="0" autocomplete="off" required>
+                        <p>Tamanho do Lote (pçs)</p>
+                        <input type="number" name="lot_ammount" id="quantity" step="0.01" min="0" autocomplete="off" required>
+                        <p>Tempo para Produzir um Lote (min)</p>
+                        <input type="number" name="time_to_produce" id="time_to_produce" step="0.01" min="0" autocomplete="off" required>
+                        <br>
+                        <br>
+                        <input type="submit" value="Cadastrar Materia Prima no Produto">
+                    </form>
+                </section>
+            </section>
+        </div>
+</section>
+{% endblock %}

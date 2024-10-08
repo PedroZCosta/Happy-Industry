@@ -1,0 +1,24 @@
+{% extends 'standard.html' %}
+
+{% block head %}
+<title>Cadastro de Unidades de Medidas</title>
+{% endblock %}
+
+{% block body %}
+<section>
+    <h1>Cadastro de Unidades de Medidas</h1>
+    <div>
+        <section class="format">
+            <h1>Alterar Unidade de Medida</h1>
+            <form action="/cadastros_gerais_unidades_de_medidas_update/{{measure.ID}}" method="POST">
+                <p>Medida:</p>
+                <input type="text" name="name" id="name" value="{{measure.NAME}}" maxlength="200" autocomplete="off" required>
+                <p>Abreviação:</p>
+                <input type="text" name="abreviation" id="abreviation" value="{{measure.ABREVIATION}}" maxlength="10" autocomplete="off" required>
+                <br>
+                <input class="bt" type="submit" value="Alterar Unidade de Medida">
+            </form>
+        </section>
+    </div>   
+</section>
+{% endblock %}
